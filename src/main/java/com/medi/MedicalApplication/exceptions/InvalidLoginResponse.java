@@ -2,20 +2,20 @@ package com.medi.MedicalApplication.exceptions;
 
 
 public class InvalidLoginResponse {
-    private String email;
+    private String username;
     private String password;
 
     public InvalidLoginResponse() {
-        this.email = "Invalid Email";
+        this.username = "Invalid Email";
         this.password = "Invalid Password";
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +27,24 @@ public class Student {
     private int semester;
     private String roleId;
     private String courseId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "loginId", nullable = false)
+    private Login floginId;
+
+    public void setTpNo(Integer tpNo) {
+        this.tpNo = tpNo;
+    }
+
+    public Login getFloginId() {
+        return floginId;
+    }
+
+    public void setFloginId(Login floginId) {
+        this.floginId = floginId;
+    }
+
+
 
     public String getStudentId() {
         return studentId;

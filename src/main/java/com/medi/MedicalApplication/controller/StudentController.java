@@ -5,6 +5,7 @@ import com.medi.MedicalApplication.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -12,11 +13,11 @@ import java.util.List;
 @RequestMapping("/student")
 @CrossOrigin
 public class StudentController {
-    @Autowired
+    @Autowired 
     private StudentService service;
 
     @PostMapping("/addstudent")
-    public Student addStudent(@RequestBody Student student) { return service.saveStudent(student); }
+    public Student addStudent(@RequestBody Student student, Principal principal) { return service.saveStudent(student); }
     @PostMapping("/addStudents")
     public List<Student> addStudents(@RequestBody List<Student> students) {
         return service.saveStudents(students);
