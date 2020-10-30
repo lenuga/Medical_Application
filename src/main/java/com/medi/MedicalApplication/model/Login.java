@@ -31,11 +31,6 @@ public class Login implements UserDetails {
 
     private String jwtToken;
 
-
-    //    private Date createdAt;
-//    private Date updatedAt;
-
-
     public Login() {
     }
 
