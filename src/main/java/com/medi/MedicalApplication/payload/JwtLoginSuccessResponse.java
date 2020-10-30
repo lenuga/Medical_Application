@@ -24,4 +24,12 @@ public class JwtLoginSuccessResponse {
     public void setToken(String token) {
         this.token = token;
     }
+    
+    @Override
+    public String toString() {
+        return "JwtLoginSuccessResponse{" +
+                "success=" + success +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }
