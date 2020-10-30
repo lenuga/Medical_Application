@@ -6,6 +6,7 @@ import com.medi.MedicalApplication.payload.LoginRequest;
 import com.medi.MedicalApplication.security.JwtTokenProvider;
 import com.medi.MedicalApplication.service.LoginService;
 import com.medi.MedicalApplication.service.MapValidationErrorService;
+import com.medi.MedicalApplication.validator.LoginValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,9 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+    // Validator
+    @Autowired
+    private LoginValidator loginValidator;
 
     @Autowired
     private JwtTokenProvider tokenProvider;
@@ -42,16 +46,20 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateLogin(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
-        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+    public ResponseEntity<?> authenticateLogin(@Valid @RequestBody Login loginRequest, BindingResult result){
 
-    if(errorMap != null) return errorMap;
-      Authentication authentication = authenticationManager.authenticate(
-              new UsernamePasswordAuthenticationToken(
-                      "abc@gmail.com",
-                      "12345"
-              )
-      );
+        //Validator passwords match
+
+//        loginValidator.validate(login,result);
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null) return errorMap;
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                )
+        );
         System.out.println(authentication.getPrincipal().toString());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX + tokenProvider.generateToken(authentication);
@@ -69,20 +77,9 @@ public class LoginController {
         if(errorMap != null) return errorMap;
 
         Login newLogin = loginService.saveLogin(login);
-         return new ResponseEntity<Login>(newLogin, HttpStatus.CREATED);
+        return new ResponseEntity<Login>(newLogin, HttpStatus.CREATED);
     }
 
-//    @PostMapping("/addlogin")
-//    public Login addLogin(@RequestBody Login login) { return loginService.saveLogin(login); }
-//    @PostMapping("/addLogins")
-//    public List<Login> addLogins(@RequestBody List<Login> logins) { return loginService.saveLogins(logins); }
-//    @GetMapping("/logins")
-//    public List<Login> findAllLogins(){ return loginService.getLogins(); }
-//    @GetMapping("/{id}")
-//    public Login findByLoginId(@PathVariable (value="id") Long id) {return loginService.getLoginById(id);}
-//    @GetMapping("/login/{name}")
-//    public Login findByUsername(@PathVariable(value = "name") String username) {return loginService.getLoginByUsername(username); }
-//    @PutMapping("/update")
-//    public Login updateLogin(@RequestBody Login login){ return loginService.updateLogin(login); }
+
 
 }
