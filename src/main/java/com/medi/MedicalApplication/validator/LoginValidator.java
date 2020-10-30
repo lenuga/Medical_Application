@@ -1,43 +1,30 @@
-//package com.medi.MedicalApplication.validator;
-//
-//import com.medi.MedicalApplication.model.Login;
-//import org.springframework.stereotype.Component;
-//
-//import javax.validation.ConstraintViolation;
-//import javax.validation.Validator;
-//import javax.validation.executable.ExecutableValidator;
-//import javax.validation.metadata.BeanDescriptor;
-//import java.util.Set;
-//
-//@Component
-//public class LoginValidator implements Validator {
-//    @Override
-//    public <T> Set<ConstraintViolation<T>> validate(T t, Class<?>... classes) {
-//        return ;
-//    }
-//
-//    @Override
-//    public <T> Set<ConstraintViolation<T>> validateProperty(T t, String s, Class<?>... classes) {
-//        return null;
-//    }
-//
-//    @Override
-//    public <T> Set<ConstraintViolation<T>> validateValue(Class<T> aClass, String s, Object o, Class<?>... classes) {
-//        return null;
-//    }
-//
-//    @Override
-//    public BeanDescriptor getConstraintsForClass(Class<?> aClass) {
-//        return null;
-//    }
-//
-//    @Override
-//    public <T> T unwrap(Class<T> aClass) {
-//        return null;
-//    }
-//
-//    @Override
-//    public ExecutableValidator forExecutables() {
-//        return null;
-//    }
-//}
+package com.medi.MedicalApplication.validator;
+
+import com.medi.MedicalApplication.model.Login;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+
+@Component
+public class LoginValidator implements Validator {
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return Login.class.equals(aClass);
+    }
+
+    @Override
+    public void validate(Object object, Errors errors) {
+         Login login = (Login) object;
+
+         if(login.getPassword().length() <6){
+             errors.rejectValue("password", "Length", "password must be at least 6 characters");
+         }
+//confirmpassword
+         if(!login.getPassword().equals(login.getConfirmpassword())){
+             errors.rejectValue("confirmpassword", "Length", "password must match");
+
+         }
+    }
+}
