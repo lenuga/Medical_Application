@@ -18,14 +18,14 @@ public class CustomLoginDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Login login = loginRepository.findByUsername(username);
 
-        if (login == null) new UsernameNotFoundException("user ot found");
+        if (login==null) new UsernameNotFoundException("user not found");
         return login;
     }
-        @Transactional
-        public  Login loadLoginByLoginId(Long loginId){
-           Login login = loginRepository.getByLoginId(loginId);
-            if(login==null) new UsernameNotFoundException("user ot found");
-            return  login;
-        }
+    @Transactional
+    public  Login loadLoginByLoginId(Long loginId){
+        Login login = loginRepository.getByLoginId(loginId);
+        if(login==null) new UsernameNotFoundException("user not found");
+        return  login;
     }
+}
 
