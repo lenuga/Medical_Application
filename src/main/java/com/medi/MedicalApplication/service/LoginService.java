@@ -1,6 +1,7 @@
 package com.medi.MedicalApplication.service;
 
-import com.medi.MedicalApplication.exceptions.UsernameAlredyExistsException;
+import com.medi.MedicalApplication.exceptions.UsernameAlreadyExistsException;
+import com.medi.MedicalApplication.exceptions.UsernameAlreadyExistsException;
 import com.medi.MedicalApplication.model.Login;
 import com.medi.MedicalApplication.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class LoginService {
             return loginRepository.save(newlogin);
 
         }catch (Exception e) {
-             throw new UsernameAlredyExistsException("Username '"+ newlogin.getUsername()+"' already exists");
+            throw new UsernameAlreadyExistsException("Username '"+ newlogin.getUsername()+"' already exists");
         }
 
     }
