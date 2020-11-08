@@ -84,6 +84,6 @@ public class Login implements UserDetails {
         this.jwtToken = jwtToken;
     }
 
-    //One To One
+  
 
 }
