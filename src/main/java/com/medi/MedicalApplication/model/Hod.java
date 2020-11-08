@@ -22,6 +22,15 @@ public class Hod {
     private int tpNo;
     private String mail;
     private String departmentId;
+    
+    
+    public Login getLogin() { return login; }
+
+    public void setLogin(Login login) { this.login = login; }
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name ="loginId", nullable = false)
+    private Login login;
 
     public String getHodId() { return hodId; }
 
