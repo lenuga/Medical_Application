@@ -21,6 +21,14 @@ public class Dean {
     private String deanName;
     private String mail;
     private Integer tpNo;
+    
+    public Login getLogin() { return login; }
+
+    public void setLogin(Login login) { this.login = login; }
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name ="loginId", nullable = false)
+    private Login login;
 
     public String getDeanId() {
         return deanId;
