@@ -30,6 +30,24 @@ public class Student {
     private String roleId;
     private String courseId;
 
+    
+        public Login getLogin() { return login; }
+
+    public void setLogin(Login login) { this.login = login; }
+
+// @JoinColumn(name ="floginId", referencedColumnName = "loginId",nullable = false)
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name ="floginId", nullable = false)
+    private Login login;
+
+    public Student() {
+        this.studentId = studentId;
+        this.mail = mail;
+        this.login = login;
+    }
+    
+    
     public String getStudentId() {
         return studentId;
     }
