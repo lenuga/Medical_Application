@@ -38,7 +38,7 @@ public class Login implements UserDetails {
     public String getUsername() {
         return username;
     }
-//UserDetals interface methods
+//UserDetails interface methods
     @Override
     public boolean isAccountNonExpired() {
         return true;
